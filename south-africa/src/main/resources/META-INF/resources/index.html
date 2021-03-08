@@ -1,183 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>south-africa - 1.0.0-SNAPSHOT</title>
-    <style>
-        h1, h2, h3, h4, h5, h6 {
-            margin-bottom: 0.5rem;
-            font-weight: 400;
-            line-height: 1.5;
-        }
+	<head>
+		<meta charset="UTF-8">
+		<title>South Africa API</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Bootstrap -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+			crossorigin="anonymous">
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+			crossorigin="anonymous"></script>
+		<!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- Script -->
+		<script type="text/javascript">
+			const saEndpoint = 'http://localhost:8080/south-africa';
+	    	$(document).ready(function(){
+	    		$('#idAlertSingleCheck').hide();
+	    		$('#idAlertFileCheck').hide();
+		    	$('#idSingleCheckButton').click(function(){
+		    		$.get(`${saEndpoint}/check/${$('#idSingleCheckInput').val()}`, 
+		    			(data) => parseResult(data,'idAlertSingleCheck', $('#idSingleCheckInput').val()));
+		    	});
 
-        h1 {
-            font-size: 2.5rem;
-        }
+		    	$('#idFileCheckForm').submit(function(event){
+	    			event.stopPropagation();
+	    		  	event.preventDefault();
+	    		  	// Clear alert containter
+	    		  	$('#idAlertFileCheckContainer').empty();
 
-        h2 {
-            font-size: 2rem
-        }
-
-        h3 {
-            font-size: 1.75rem
-
-        }
-
-        h4 {
-            font-size: 1.5rem
-        }
-
-        h5 {
-            font-size: 1.25rem
-        }
-
-        h6 {
-            font-size: 1rem
-        }
-
-        .lead {
-            font-weight: 300;
-            font-size: 2rem;
-        }
-
-        .banner {
-            font-size: 2.7rem;
-            margin: 0;
-            padding: 2rem 1rem;
-            background-color: #0d1c2c;
-            color: white;
-        }
-
-        body {
-            margin: 0;
-            font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        }
-
-        code {
-            font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            font-size: 87.5%;
-            color: #e83e8c;
-            word-break: break-word;
-        }
-
-        .left-column {
-            padding: .75rem;
-            max-width: 75%;
-            min-width: 55%;
-        }
-
-        .right-column {
-            padding: .75rem;
-            max-width: 25%;
-        }
-
-        .container {
-            display: flex;
-            width: 100%;
-        }
-
-        li {
-            margin: 0.75rem;
-        }
-
-        .right-section {
-            margin-left: 1rem;
-            padding-left: 0.5rem;
-        }
-
-        .right-section h3 {
-            padding-top: 0;
-            font-weight: 200;
-        }
-
-        .right-section ul {
-            border-left: 0.3rem solid #71aeef;
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .example-code {
-            border-left: 0.3rem solid #71aeef;
-            padding-left: 10px;
-        }
-
-        .example-code h3 {
-            font-weight: 200;
-        }
-    </style>
-</head>
-<body>
-
-<div class="banner lead">
-    Your new Cloud-Native application is ready!
-</div>
-
-<div class="container">
-    <div class="left-column">
-        <p class="lead"> Congratulations, you have created a new Quarkus cloud application.</p>
-
-        <h2>What is this page?</h2>
-
-        <p>This page is served by Quarkus. The source is in
-            <code>src/main/resources/META-INF/resources/index.html</code>.</p>
-
-        <h2>What are your next steps?</h2>
-
-        <p>If not already done, run the application in <em>dev mode</em> using: <code>./mvnw compile quarkus:dev</code>.
-        </p>
-        <ul>
-            <li>Your static assets are located in <code>src/main/resources/META-INF/resources</code>.</li>
-            <li>Configure your application in <code>src/main/resources/application.properties</code>.</li>
-            <li>Quarkus now ships with a <a href="/q/dev/">Dev UI</a> (available in dev mode only)</li>
-            <li>Play with the getting started example code located in <code>src/main/java</code>:</li>
-        </ul>
-                <div class="example-code">
-            <h3>RESTEasy JAX-RS example</h3>
-            <p>REST is easy peasy with this Hello World RESTEasy resource.</p>
-            <p><code>@Path: <a href="/hello-resteasy" class="path-link" target="_blank">/hello-resteasy</a></code></p>
-            <p><a href="https://quarkus.io/guides/getting-started#the-jax-rs-resources" class="guide-link" target="_blank">Related guide section...</a></p>
-        </div>
-        <div class="example-code">
-            <h3>RESTEasy JSON serialisation using Jackson</h3>
-            <p>This example demonstrate RESTEasy JSON serialisation by letting you list, add and remove quark types from a list. Quarked!</p>
-            <p><code>@Path: <a href="/resteasy-jackson/quarks/" class="path-link" target="_blank">/resteasy-jackson/quarks/</a></code></p>
-            <p><a href="https://quarkus.io/guides/rest-json#creating-your-first-json-rest-service" class="guide-link" target="_blank">Related guide section...</a></p>
-        </div>
-
-    </div>
-    <div class="right-column">
-        <div class="right-section">
-            <h3>Application</h3>
-            <ul>
-                <li>GroupId: <code>org.interlogica</code></li>
-                <li>ArtifactId: <code>south-africa</code></li>
-                <li>Version: <code>1.0.0-SNAPSHOT</code></li>
-                <li>Quarkus Version: <code>1.12.1.Final</code></li>
-            </ul>
-        </div>
-        <div class="right-section">
-            <h3>Do you like Quarkus?</h3>
-            <ul>
-                <li>Go give it a star on <a href="https://github.com/quarkusio/quarkus">GitHub</a>.</li>
-            </ul>
-        </div>
-        <div class="right-section">
-            <h3>Selected extensions guides</h3>
-            <ul>
-                <li title="Document your REST APIs with OpenAPI - comes with Swagger UI"><a href="https://quarkus.io/guides/openapi-swaggerui" target="_blank">SmallRye OpenAPI guide</a></li>
-                <li title="REST endpoint framework implementing JAX-RS and more"><a href="https://quarkus.io/guides/rest-json" target="_blank">RESTEasy JAX-RS guide</a></li>
-            </ul>
-        </div>
-        <div class="right-section">
-            <h3>More reading</h3>
-            <ul>
-                <li><a href="https://quarkus.io/guides/maven-tooling.html" target="_blank">Setup your IDE</a></li>
-                <li><a href="https://quarkus.io/guides/getting-started.html" target="_blank">Getting started</a></li>
-                <li><a href="https://quarkus.io/guides/" target="_blank">All guides</a></li>
-                <li><a href="https://quarkus.io" target="_blank">Quarkus Web Site</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-</body>
+	    		  	const file = $("#idFileCheckInput").prop('files')[0];
+	    		  	const fr = new FileReader();
+	    		  	fr.readAsDataURL(file);
+	    		  	fr.onload = () => {
+	    		  		// Consume API
+	    		  		$.ajax({
+					    	url: `${saEndpoint}/check`,
+					        type : "POST",
+					        contentType : "application/json;charset=utf-8",
+					        dataType: 'json',
+					        remote: { 'cache': false },
+					        data: JSON.stringify({
+					        	fileContent:fr.result.replace("data:", "").replace(/^.+,/, ""),
+					        	fileContentType:file.type,
+					        	fileName:file.name,
+					        	columnSeparator:$("#idColSeparator").val(),
+					        	hasHeader:$("#idWithHeader").is(':checked'),
+					        	showResultList:$("#idShowResult").is(':checked'),
+					        	keyColumnNumber:$("#idKeyNumber").val(),
+						    }),
+					        success: function (data) {
+					      		console.log("onSuccess : ",data);
+					      		for (const [key, value] of Object.entries(data.result)) {
+									// Create alert
+									const idAlert = `idAlertFile-${key}`
+									$('#idAlertFileCheckContainer').append(`<div id='${idAlert}' class='alert'></div`);
+						    		console.log("value ",value);
+									parseResult({result:value}, idAlert, key);
+					      		}
+					        },
+					        error: function (error){
+					        	console.error("error : ",error);
+					        }
+					     });
+	    		  	}
+		    	});
+		    })
+		    	
+	    	function parseResult(data,idAlert,name){
+	    		console.log("response",data);
+    			const { result } = data;
+    			if(result.isValid && !result.isModified ){
+    				showAlert(idAlert,'alert-success', `${name} : The number is valid`);
+    			} else if(result.isModified && result.remediations){
+    				showAlert(idAlert,'alert-warning',`${name} : <br>` + result.remediations.map(r => "Remediation applied : "+r.action+"<br>"));		    				
+    			} else {
+    				showAlert(idAlert,'alert-danger',`${name} : ${result.error}`);
+    			}
+	    	}
+	    	
+	    	function showAlert(alertId,classToAdd,innerHTML){
+	    		const alertComponent = $(`#${alertId}`);
+	    		alertComponent.removeClass('alert-danger alert-warning alert-success');
+	    		alertComponent.addClass(classToAdd);
+	    		alertComponent.html(innerHTML);	
+	    		alertComponent.show();	    
+	    	}
+		    
+		</script>
+	</head>
+	<body>
+		<h1 class="m-4">South Africa API</h1>
+	
+		<div class="container">
+			<!-- Single check -->
+			<article class="border border-dark p-3 mb-4">
+				<h2><strong>Single Check</strong></h2>
+				<hr>
+				<div class="row ">
+					<div class="col-12">
+						<p>Test cases</p>
+						<ul class="list-group">
+							<li class="list-group-item">Correct number : <strong>12345687912</strong></li>
+							<li class="list-group-item">Remediations applied : <strong>_123456879</strong></li>
+							<li class="list-group-item">Invalid number : <strong>12345</strong></li>
+						</ul>
+					</div>
+				</div>
+	
+				<form id="idSingleCheckForm" class="row justify-content-center ">
+					<div class="m-3">
+						<label for="idSingleCheckInput" class="form-label">Insert a
+							phone number :</label> <input type="text" class="form-control"
+							id="idSingleCheckInput">
+					</div>
+					<button type="button" id="idSingleCheckButton"
+						class="btn btn-primary m-3 col-6">Check</button>
+				</form>
+				<div class="alert" role="alert" id="idAlertSingleCheck"></div>
+	
+			</article>
+	
+			<!-- File check -->
+			<article class="border border-dark p-3 mb-4">
+				<h2><strong>File Check</strong></h2>
+				<form id="idFileCheckForm" class="row justify-content-center ">
+					<hr>
+					<div class="row justify-content-start m-2">
+						<div class="col">
+							<input type="checkbox" class="form-check-input" id="idWithHeader" checked>
+							<label class="form-check-label" for="idWithHeader">With header</label>
+						</div>
+						<div class="col">
+							<input type="checkbox" class="form-check-input" id="idShowResult" checked>
+							<label class="form-check-label" for="idShowResult">Show Result Here</label>
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-2">
+							<label for="idColSeparator" class="form-label">Column separator</label> 
+							<input type="text" maxlength="1" class="form-control" id="idColSeparator" value=",">
+						</div>
+						<div class="col-2">
+							<label for="idKeyNumber" class="form-label">Key column number</label> 
+							<input type="number" maxlength="3" class="form-control" id="idKeyNumber" value="1">
+						</div>					
+					</div>
+					<div class="row m-2">
+						<div class="col">
+							<label for="idFileCheckInput" class="form-label">Pick a file :</label> 
+							<input type="file" class="form-control" id="idFileCheckInput">
+						</div>
+					</div>
+	
+					<button type="submit" id="idFileCheckButton" class="btn btn-primary m-3 col-6">Analyze file</button>
+				</form>
+				
+				<div id="idAlertFileCheckContainer"></div>
+	
+			</article>
+	
+		</div>
+	</body>
 </html>
