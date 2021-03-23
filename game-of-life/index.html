@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<!-- Bootstrap -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+		crossorigin="anonymous">
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+		crossorigin="anonymous">
+	</script>
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Script -->
+	<script type="text/javascript">
+		// This matrix rapprensent The entire world :)
+		// On every
+		var theWorld = [0][0];
+		$(document).ready(()=>{
+			generateTable();
+			$('#idTableSize').change(generateTable);
+		});
+		
+		function generateTable(){
+			const tableSize = $('#idTableSize').val();
+			if(tableSize > 50 ){
+				tableSize = 50;
+				$('#idTableSize').val(50)
+			}
+			// Clear previous data
+			$('#idRootBody').empty();
+			console.log("generateTable : ",tableSize);
+			
+			// Generate new table
+			for(let ii=0;ii<tableSize;ii++){
+				console.log("ii : ",ii);
+				const tableRow = $(`<tr id='idRow-${ii}'> </tr>`);
+				$('#idRootBody').append(tableRow);
+				for(let jj=0;jj<tableSize;jj++){
+					console.log("jj : ",jj);
+					tableRow.append(`<td id='idCol-${ii}-${jj}' class='dead'> </td>`)
+				}
+			}
+		}
+	</script>
+	<style type="text/css">
+		.alive {
+			border:1px solid black;
+			background-color:green;
+			height: 20px;
+			width: 20px;
+		}
+		.dead {
+			border:1px solid black;
+			background-color:red;
+			height: 20px;
+			width: 20px;
+		}
+		
+	</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Game of life</h1>
+			<form class='row'>
+				<div class="form-group col-2">
+					<label for="idTableSize">Table size</label> 
+					<input type="number" maxLength="2" class="form-control w-1" value='35' id="idTableSize" > 
+					<small> max 50</small>
+				</div>
+			</form>
+			<hr>
+			<br>
+			<table id='idRoot' class="m-auto">
+				<tbody id='idRootBody'></tbody>
+			</table>
+		</div>
+	</body>
+</html>
